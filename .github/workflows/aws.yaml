@@ -80,7 +80,7 @@ jobs:
 
       - name: Render Task Definition
         id: render-task
-        uses: aws-actions/amazon-ecs-render-task-definition@v5
+        uses: aws-actions/amazon-ecs-render-task-definition@v4
         with:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
           container-name: ${{ env.CONTAINER_NAME }}
