@@ -8,7 +8,7 @@ env:
   AWS_REGION: us-east-1
   ECR_REPOSITORY: documentportal
   ECS_SERVICE: documentportal-service
-  ECS_CLUSTER: documentportal-cluster
+  ECS_CLUSTER: multidocumentportal
   ECS_TASK_DEFINITION: .github/workflows/task_definition.json
   CONTAINER_NAME: documentportal-container
 
@@ -69,7 +69,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v5
