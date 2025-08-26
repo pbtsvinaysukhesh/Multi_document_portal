@@ -42,3 +42,5 @@ logs/
 dist/
 build/
 document_portal.egg-info/
+
+.github/workflows/aws.yaml
