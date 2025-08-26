@@ -7,7 +7,7 @@
   "memory": "3072",
   "containerDefinitions": [
     {
-      "name": "documentportal",
+      "name": "documentportal-container",
       "image": "630627140541.dkr.ecr.us-east-1.amazonaws.com/multidocumentportal:latest",
       "cpu": 1024,
       "essential": true,
