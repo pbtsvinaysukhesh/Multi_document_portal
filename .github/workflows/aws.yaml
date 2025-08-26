@@ -6,11 +6,11 @@ on:
       - completed
 env:
   AWS_REGION: us-east-1
-  ECR_REPOSITORY: documentportalliveclass
-  ECS_SERVICE: document-portal-service
-  ECS_CLUSTER: document-portal-cluster
+  ECR_REPOSITORY: multidocumentportal
+  ECS_SERVICE: documentportal-service
+  ECS_CLUSTER: documentportal-cluster
   ECS_TASK_DEFINITION: .github/workflows/task_definition.json
-  CONTAINER_NAME: document-portal-container
+  CONTAINER_NAME: documentportal-container
 
 permissions:
   id-token: write

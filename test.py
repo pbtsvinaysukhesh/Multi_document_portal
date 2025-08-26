@@ -254,7 +254,7 @@
 #   "containerDefinitions": [
 #     {
 #       "name": "document-portal-container",
-#       "image": "459497895986.dkr.ecr.ap-southeast-2.amazonaws.com/documentportalliveclass",
+#       "image": "459497895986.dkr.ecr.ap-southeast-2.amazonaws.com/multidocumentportal",
 #       "cpu": 1024,
 #       "essential": true,
 #       "portMappings": [
