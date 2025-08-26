@@ -1,50 +1,97 @@
 {
-  "family": "multidocumentportal",
-  "networkMode": "awsvpc",
-  "executionRoleArn": "arn:aws:iam::630627140541:role/multi_doc_portal",
-  "requiresCompatibilities": [
+  "compatibilities": [
     "EC2",
     "FARGATE"
   ],
-  "cpu": "1024",
-  "memory": "3072",
   "containerDefinitions": [
     {
-      "name": "documentportal-container",
-      "image": "630627140541.dkr.ecr.us-east-1.amazonaws.com/documentportal:a9f227f88f295ebd4a744af7526c1831a49992d4",
       "cpu": 1024,
-      "essential": true,
-      "portMappings": [
-        {
-          "containerPort": 80,
-          "hostPort": 80,
-          "protocol": "tcp",
-          "name": "documentportal-80-tcp",
-          "appProtocol": "http"
-        }
-      ],
       "environment": [
         {
           "name": "ENV",
           "value": "production"
-        }
-      ],
-      "secrets": [
+        },
         {
           "name": "API_KEYS",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:630627140541:secret:API_KEYS-XOVLi3-ixcw3p"
+          "value": "arn:aws:secretsmanager:us-east-1:630627140541:secret:API_KEYS-XOVLi3-ixcw3p"
         }
-        
       ],
+      "essential": true,
+      "image": "630627140541.dkr.ecr.us-east-1.amazonaws.com/documentportal:a9f227f88f295ebd4a744af7526c1831a49992d4",
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
           "awslogs-group": "/ecs/multidocumentportal",
+          "awslogs-create-group": "true",
           "awslogs-region": "us-east-1",
-          "awslogs-stream-prefix": "ecs",
-          "awslogs-create-group": "true"
+          "awslogs-stream-prefix": "ecs"
+        },
+        "secretOptions": []
+      },
+      "memory": 8192,
+      "mountPoints": [],
+      "name": "documentportal-container",
+      "portMappings": [
+        {
+          "appProtocol": "http",
+          "containerPort": 8080,
+          "hostPort": 8080,
+          "name": "documentportal-8080-tcp",
+          "protocol": "tcp"
         }
-      }
+      ],
+      "systemControls": [],
+      "volumesFrom": []
     }
-  ]
+  ],
+  "cpu": "1024",
+  "executionRoleArn": "arn:aws:iam::630627140541:role/multi_doc_portal",
+  "family": "multidocumentportal",
+  "memory": "8192",
+  "networkMode": "awsvpc",
+  "placementConstraints": [],
+  "registeredAt": "2025-08-26T19:33:20.032Z",
+  "registeredBy": "arn:aws:iam::630627140541:root",
+  "requiresAttributes": [
+    {
+      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+    },
+    {
+      "name": "ecs.capability.execution-role-awslogs"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.ecr-auth"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.task-iam-role"
+    },
+    {
+      "name": "ecs.capability.execution-role-ecr-pull"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+    },
+    {
+      "name": "ecs.capability.task-eni"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
+    }
+  ],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "revision": 4,
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  },
+  "status": "ACTIVE",
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:630627140541:task-definition/multidocumentportal:4",
+  "taskRoleArn": "arn:aws:iam::630627140541:role/multi_doc_portal",
+  "volumes": [],
+  "tags": []
 }
