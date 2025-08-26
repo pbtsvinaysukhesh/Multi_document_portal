@@ -20,12 +20,7 @@
           "appProtocol": "http"
         }
       ],
-      "environment": [
-        {
-          "name": "ENV",
-          "value": "production"
-        }
-      ],
+      "environment": [],
       "secrets": [
         {
           "name": "API_KEYS",
