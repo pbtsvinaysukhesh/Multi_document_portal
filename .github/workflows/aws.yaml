@@ -10,7 +10,7 @@ env:
   ECS_SERVICE: documentportal-service  # Updated to correct service name
   ECS_CLUSTER: flashy-bear-wpvkri
   ECS_TASK_DEFINITION: .github/workflows/task_definition.json
-  CONTAINER_NAME: multidocumentportal
+  CONTAINER_NAME: documentportalliveclass
 
 permissions:
   id-token: write
