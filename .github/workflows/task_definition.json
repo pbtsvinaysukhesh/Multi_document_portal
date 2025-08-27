@@ -2,7 +2,6 @@
   "family": "documentportal",
   "networkMode": "awsvpc",
   "executionRoleArn": "arn:aws:iam::630627140541:role/ecsTaskExecutionRole",
-  "taskRoleArn": "arn:aws:iam::630627140541:role/ecsTaskExectionRole",
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "1024",
   "memory": "8192",
@@ -11,7 +10,6 @@
       "name": "documentportalliveclass",
       "image": "630627140541.dkr.ecr.ap-south-1.amazonaws.com/documentportalliveclass",
       "cpu": 1024,
-      "memory": 8192,
       "essential": true,
       "portMappings": [
         {
