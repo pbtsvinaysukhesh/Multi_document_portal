@@ -2,7 +2,7 @@
   "family": "documentportal",
   "networkMode": "awsvpc",
   "executionRoleArn": "arn:aws:iam::630627140541:role/ecsTaskExecutionRole",
-  "taskRoleArn": "arn:aws:iam::630627140541:role/multi_doc_portal",
+  "taskRoleArn": "arn:aws:iam::630627140541:role/ecsTaskExectionRole",
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "1024",
   "memory": "8192",
