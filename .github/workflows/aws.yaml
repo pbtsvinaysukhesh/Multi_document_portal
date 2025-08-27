@@ -7,7 +7,7 @@ on:
 env:
   AWS_REGION: ap-south-1
   ECR_REPOSITORY: documentportalliveclass
-  ECS_SERVICE: multidocumentportal-service  # Updated to correct service name
+  ECS_SERVICE: multidocumentportal-service-1  # Updated to correct service name
   ECS_CLUSTER: multidocumentportal
   ECS_TASK_DEFINITION: .github/workflows/task_definition.json
   CONTAINER_NAME: multidocumentportal
