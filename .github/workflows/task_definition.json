@@ -9,7 +9,7 @@
   "containerDefinitions": [
     {
       "name": "multidocumentportal",
-      "image": "630627140541.dkr.ecr.ap-south-1.amazonaws.com/documentportalliveclass",
+      "image": "630627140541.dkr.ecr.ap-south-1.amazonaws.com/documentportalliveclass:latest",
       "cpu": 1024,
       "memory": 8192,
       "essential": true,
@@ -42,16 +42,7 @@
           "awslogs-stream-prefix": "ecs",
           "awslogs-create-group": "true"
         }
-      },
-      "mountPoints": [],
-      "systemControls": [],
-      "volumesFrom": []
+      }
     }
-  ],
-  "runtimePlatform": {
-    "cpuArchitecture": "X86_64",
-    "operatingSystemFamily": "LINUX"
-  },
-  "volumes": [],
-  "tags": []
+  ]
 }
