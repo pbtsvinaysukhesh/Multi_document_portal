@@ -34,6 +34,16 @@
         {"name": "ECS_CLUSTER", "value": "multidocumentportal"},
         {"name": "ECS_SERVICE", "value": "multidocumentportal-service-txd1vrkb"}
       ],
+      "secrets": [
+        {
+          "name": "GROQ_API_KEYS",
+          "valueFrom": "arn:aws:secretsmanager:ap-south-1:630627140541:secret:apikeyliveclass-dQ4D3p:GROQ_API_KEY"
+        },
+        {
+          "name": "GOOGLE_API_KEYS",
+          "valueFrom": "arn:aws:secretsmanager:ap-south-1:630627140541:secret:apikeyliveclass-dQ4D3p:GOOGLE_API_KEY"
+        }
+      ],
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
