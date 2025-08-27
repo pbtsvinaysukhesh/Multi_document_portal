@@ -32,7 +32,7 @@
           "value": "arn:aws:secretsmanager:us-east-1:630627140541:secret:API_KEYS-XOVLi3-ixcw3p"
         },
         {"name": "ECS_CLUSTER", "value": "multidocumentportal"},
-        {"name": "ECS_SERVICE", "value": "multidocumentportal-service-txd1vrkb"}
+        {"name": "ECS_SERVICE", "value": "multidocumentportal"}
       ],
       "secrets": [
         {
