@@ -38,7 +38,7 @@
         "logDriver": "awslogs",
         "options": {
           "awslogs-group": "/ecs/multidocumentportal",
-          "awslogs-region": "us-east-1",
+          "awslogs-region": "ap-south-1",
           "awslogs-stream-prefix": "ecs",
           "awslogs-create-group": "true"
         }
