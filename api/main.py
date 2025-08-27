@@ -1,4 +1,5 @@
 import os
+import uvicorn
 from typing import List, Optional, Any, Dict
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Request
 from fastapi.responses import JSONResponse, HTMLResponse
@@ -46,7 +47,9 @@ async def serve_ui(request: Request):
 @app.get("/health")
 def health() -> Dict[str, str]:
     log.info("Health check passed.")
+    
     return {"status": "ok", "service": "document-portal"}
+
 
 # ---------- ANALYZE ----------
 @app.post("/analyze")
@@ -154,7 +157,23 @@ async def chat_query(
     except Exception as e:
         log.exception("Chat query failed")
         raise HTTPException(status_code=500, detail=f"Query failed: {e}")
+    
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
 
+@app.get("/")
+async def root():
+    return {"message": "Document Portal API is running"}
+
+if __name__ == "__main__":
+    uvicorn.run(
+        "main:app",
+        host="0.0.0.0",
+        port=8080,
+        reload=True,
+        workers=4,
+        access_log=True
+    )
 # command for executing the fast api
 # uvicorn api.main:app --port 8080 --reload    
 #uvicorn api.main:app --host 0.0.0.0 --port 8080 --reload
