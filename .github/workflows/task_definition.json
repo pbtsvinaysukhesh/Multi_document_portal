@@ -1,8 +1,8 @@
 {
   "family": "multidocumentportal",
   "networkMode": "awsvpc",
-  "executionRoleArn": "arn:aws:iam::630627140541:role/multi_doc_portal",
-  "taskRoleArn": "arn:aws:iam::630627140541:role/multi_doc_portal",
+  "executionRoleArn": "arn:aws:iam::630627140541:role/multidocumentportal",
+  "taskRoleArn": "arn:aws:iam::630627140541:role/multidocumentportal",
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "1024",
   "memory": "8192",
