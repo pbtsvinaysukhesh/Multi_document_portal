@@ -8,7 +8,7 @@
   "memory": "8192",
   "containerDefinitions": [
     {
-      "name": "documentportal-container",
+      "name": "documentportalliveclass",
       "image": "630627140541.dkr.ecr.ap-south-1.amazonaws.com/documentportalliveclass",
       "cpu": 1024,
       "memory": 8192,
@@ -33,16 +33,6 @@
         },
         {"name": "ECS_CLUSTER", "value": "multidocumentportal"},
         {"name": "ECS_SERVICE", "value": "multidocumentportal-service-txd1vrkb"}
-      ],
-      "secrets": [
-        {
-          "name": "GROQ_API_KEY",
-          "valueFrom": "arn:aws:secretsmanager:ap-south-1:630627140541:secret:apikeyliveclass-dQ4D3p:GROQ_API_KEY"
-        },
-        {
-          "name": "GOOGLE_API_KEY",
-          "valueFrom": "arn:aws:secretsmanager:ap-south-1:630627140541:secret:apikeyliveclass-dQ4D3p:GOOGLE_API_KEY"
-        }
       ],
       "logConfiguration": {
         "logDriver": "awslogs",
