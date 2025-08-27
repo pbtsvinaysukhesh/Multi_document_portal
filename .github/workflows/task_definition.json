@@ -1,15 +1,15 @@
 {
-  "family": "multidocumentportal",
+  "family": "documentportal",
   "networkMode": "awsvpc",
-  "executionRoleArn": "arn:aws:iam::630627140541:role/multi_doc_portal",
+  "executionRoleArn": "arn:aws:iam::630627140541:role/ecsTaskExecutionRole",
   "taskRoleArn": "arn:aws:iam::630627140541:role/multi_doc_portal",
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "1024",
   "memory": "8192",
   "containerDefinitions": [
     {
-      "name": "multidocumentportal",
-      "image": "630627140541.dkr.ecr.ap-south-1.amazonaws.com/documentportalliveclass:latest",
+      "name": "documentportalliveclass",
+      "image": "630627140541.dkr.ecr.ap-south-1.amazonaws.com/documentportalliveclass",
       "cpu": 1024,
       "memory": 8192,
       "essential": true,
@@ -22,16 +22,6 @@
           "protocol": "tcp"
         }
       ],
-      "healthCheck": {
-        "command": [
-          "CMD-SHELL",
-          "curl -f http://localhost:8080/health || exit 1"
-        ],
-        "interval": 30,
-        "timeout": 5,
-        "retries": 3,
-        "startPeriod": 60
-      },
       "environment": [
         {
           "name": "ENV",
@@ -40,7 +30,7 @@
       ],
       "secrets": [
         {
-          "name": "API_KEYS",
+          "name": "apikeyliveclass",
           "valueFrom": "arn:aws:secretsmanager:ap-south-1:630627140541:secret:apikeyliveclass-dQ4D3p"
         }
       ],
