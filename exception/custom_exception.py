@@ -1,6 +1,14 @@
 import sys
 import traceback
 from typing import Optional, cast
+import logging
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 class DocumentPortalException(Exception):
     def __init__(self, error_message, error_details: Optional[object] = None):
@@ -50,6 +58,61 @@ class DocumentPortalException(Exception):
 
     def __repr__(self):
         return f"DocumentPortalException(file={self.file_name!r}, line={self.lineno}, message={self.error_message!r})"
+
+
+class DocumentProcessingException(DocumentPortalException):
+    """Exception for document processing errors."""
+    pass
+
+
+class UnsupportedFormatException(DocumentPortalException):
+    """Exception for unsupported file formats."""
+    pass
+
+
+class FileNotFoundException(DocumentPortalException):
+    """Exception for file not found errors."""
+    pass
+
+
+class PDFProcessingException(DocumentProcessingException):
+    """Exception for PDF processing errors."""
+    pass
+
+
+class DOCXProcessingException(DocumentProcessingException):
+    """Exception for DOCX processing errors."""
+    pass
+
+
+class ExcelProcessingException(DocumentProcessingException):
+    """Exception for Excel processing errors."""
+    pass
+
+
+class CSVProcessingException(DocumentProcessingException):
+    """Exception for CSV processing errors."""
+    pass
+
+
+class PowerPointProcessingException(DocumentProcessingException):
+    """Exception for PowerPoint processing errors."""
+    pass
+
+
+class TextProcessingException(DocumentProcessingException):
+    """Exception for text file processing errors."""
+    pass
+
+
+class MarkdownProcessingException(DocumentProcessingException):
+    """Exception for Markdown processing errors."""
+    pass
+
+
+class SQLiteProcessingException(DocumentProcessingException):
+    """Exception for SQLite database processing errors."""
+    pass
 
 
 # if __name__ == "__main__":

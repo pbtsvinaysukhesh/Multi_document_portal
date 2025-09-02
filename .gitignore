@@ -33,6 +33,8 @@ main_archive/
 # Secrets & configs
 .env
 .env.*
+llm_ops/
+llm_ops/*
 
 # Logs
 logs/
