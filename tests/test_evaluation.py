@@ -183,8 +183,23 @@ class TestDeepEvalEvaluator:
         with open(saved_file, 'r') as f:
             data = json.load(f)
 
-        assert 'results' in data
-        assert isinstance(data['results'], dict)
+        # Check that the saved data contains metric results directly (not nested under 'results')
+        assert isinstance(data, dict)
+        assert len(data) > 0
+
+        # Check that at least some expected metrics are present
+        expected_metrics = ['faithfulness', 'answer_relevancy', 'context_relevancy']
+        found_metrics = [key for key in data.keys() if key in expected_metrics]
+        assert len(found_metrics) > 0
+
+        # Verify structure of saved metric data
+        for metric_name, metric_data in data.items():
+            assert 'metric_name' in metric_data
+            assert 'score' in metric_data
+            assert 'threshold' in metric_data
+            assert 'passed' in metric_data
+            assert 'details' in metric_data
+            assert 'timestamp' in metric_data
 
     def test_generate_evaluation_report(self):
         """Test 12: Test evaluation report generation."""
