@@ -90,8 +90,8 @@
         <form id="form-chat-index" class="form-grid" onsubmit="return false;">
           <div class="field">
             <label for="chat-files">Upload files</label>
-            <input id="chat-files" type="file" multiple accept=".pdf,.docx,.txt" />
-            <small class="help">You can select multiple files.</small>
+            <input id="chat-files" type="file" multiple accept=".pdf,.docx,.txt,.xlsx,.csv,.ppt,.pptx,.md,.db" />
+            <small class="help">Supported formats: PDF, DOCX, TXT, XLSX, CSV, PPT, PPTX, MD, DB. You can select multiple files.</small>
           </div>
 
           <div class="grid-3">
@@ -120,6 +120,13 @@
                 <input id="chat-sessionized" type="checkbox" checked />
                 <span class="slider"></span>
               </label>
+            </div>
+            <div class="field">
+              <label for="chat-vector-store">Vector Store</label>
+              <select id="chat-vector-store">
+                <option value="existing">Use Existing</option>
+                <option value="new">Create New</option>
+              </select>
             </div>
           </div>
 
@@ -237,13 +244,14 @@
   let currentSession = null;
 
   document.getElementById("btn-build").addEventListener("click", async () => {
-    const files     = document.getElementById("chat-files").files;
-    const sessionId = document.getElementById("chat-session").value.trim();
-    const useSess   = document.getElementById("chat-sessionized").checked;
-    const k         = +document.getElementById("chat-k").value || 5;
-    const chunk     = +document.getElementById("chat-chunk").value || 1000;
-    const overlap   = +document.getElementById("chat-overlap").value || 200;
-    const meta      = document.getElementById("chat-meta");
+    const files       = document.getElementById("chat-files").files;
+    const sessionId   = document.getElementById("chat-session").value.trim();
+    const useSess     = document.getElementById("chat-sessionized").checked;
+    const vectorStore = document.getElementById("chat-vector-store").value;
+    const k           = +document.getElementById("chat-k").value || 5;
+    const chunk       = +document.getElementById("chat-chunk").value || 1000;
+    const overlap     = +document.getElementById("chat-overlap").value || 200;
+    const meta        = document.getElementById("chat-meta");
 
     if (!files.length) { meta.textContent = "Please upload at least one file."; return; }
 
@@ -254,6 +262,7 @@
       [...files].forEach(f => fd.append("files", f)); // <-- must be 'files'
       if (sessionId) fd.append("session_id", sessionId);
       fd.append("use_session_dirs", useSess ? "true" : "false");
+      fd.append("vector_store_choice", vectorStore);
       fd.append("chunk_size", String(chunk));
       fd.append("chunk_overlap", String(overlap));
       fd.append("k", String(k));
@@ -265,7 +274,7 @@
       }
       const json = await res.json(); // { session_id, k, use_session_dirs }
       currentSession = json.session_id || sessionId || null;
-      meta.textContent = `Indexed. session=${currentSession || "(none)"}, k=${json.k}`;
+      meta.textContent = `Indexed. session=${currentSession || "(none)"}, k=${json.k}, vector_store=${vectorStore}`;
     } catch (e) {
       meta.textContent = "Indexing failed: " + (e.message || e);
     }

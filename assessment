@@ -1,0 +1,11 @@
+Assignment on first Project:
+1. you have to make enable this project for every document(.ppt,.docx,.md,.txt,.pdf,.xlxs,.csv,anysqldb)
+2. you have to add a code for dealing with table and images data also
+3. you have to add the evalation matrix using the DeepEval
+4. write at least 10 test cases
+5. this cases should be vaildate before the commit and after the commit
+6. add one login screen to your protal
+7. use the langchain inmemory cache and implement inside the project
+8. deadline for this assignment is till 5th of september(friday)
+9. inner will present the entire solution to the whole class (30 minute presentation would be there)
+10. prize: money or course or giftpack(there will be only one winnner)
