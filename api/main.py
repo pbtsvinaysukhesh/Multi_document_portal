@@ -15,6 +15,10 @@ from src.evaluation.deep_eval_evaluator import DeepEvalEvaluator, RAGEvaluationM
 from exception.custom_exception import DocumentProcessingException
 import logging
 
+# Import LangChain caching components
+from langchain_community.cache import InMemoryCache
+from langchain.globals import set_llm_cache
+
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
@@ -261,6 +265,10 @@ def read_pdf_via_handler(handler, path):
 FAISS_BASE = os.getenv("FAISS_BASE", "faiss_index")
 UPLOAD_BASE = os.getenv("UPLOAD_BASE", "data")
 FAISS_INDEX_NAME = os.getenv("FAISS_INDEX_NAME", "index")  # <--- keep consistent with save_local()
+
+# Initialize LangChain in-memory cache for performance optimization
+set_llm_cache(InMemoryCache())
+log.info("LangChain in-memory cache initialized for performance optimization")
 
 app = FastAPI(title="Document Portal API", version="0.1")
 

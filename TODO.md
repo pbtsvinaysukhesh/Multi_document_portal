@@ -29,22 +29,26 @@
 ## 🔄 Pending Tasks
 
 ### 3. Test Cases Development
-- [ ] Write at least 10 test cases validating core functionalities
-- [ ] Create unit tests for DeepEvalEvaluator class
-- [ ] Create integration tests for evaluation endpoints
-- [ ] Create tests for document processing enhancements
-- [ ] Test edge cases and error handling
+- [x] Write at least 10 test cases validating core functionalities
+- [x] Create unit tests for DeepEvalEvaluator class
+- [x] Create integration tests for evaluation endpoints
+- [x] Create tests for document processing enhancements
+- [x] Test edge cases and error handling
 
 ### 4. Frontend Enhancements
-- [ ] Add login screen to the portal frontend
-- [ ] Update UI to display evaluation results
-- [ ] Add evaluation metrics visualization
-- [ ] Enhance chat interface with evaluation feedback
+- [x] Add login screen to the portal frontend
+- [x] Update UI to display evaluation results
+- [x] Add evaluation metrics visualization
+- [x] Enhance chat interface with evaluation feedback
 
 ### 5. Performance Optimizations
 - [ ] Integrate LangChain in-memory cache for performance improvements
 - [ ] Optimize evaluation metrics calculation
-- [ ] Add caching for frequently evaluated responses
+- [x] Add caching for frequently evaluated responses
+  - [x] Implemented in-memory cache for evaluation results
+  - [x] Added SHA256-based cache key generation
+  - [x] Cache hit/miss logging for performance monitoring
+  - [x] Cache management methods (clear_cache, get_cache_stats)
 
 ### 6. Additional Features
 - [ ] Add evaluation metrics dashboard

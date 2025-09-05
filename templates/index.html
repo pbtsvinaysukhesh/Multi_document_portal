@@ -20,6 +20,7 @@
       <button class="tab-btn active" data-tab="analysis">Document Analysis</button>
       <button class="tab-btn" data-tab="compare">Document Compare</button>
       <button class="tab-btn" data-tab="chat">Doc Chat</button>
+      <button class="tab-btn" data-tab="evaluation">Evaluation</button>
     </nav>
   </header>
 
@@ -82,7 +83,7 @@
     </section>
 
     <!-- ============== CHAT ============== -->
-    <section id="tab-chat" class="tab-panel">
+  <section id="tab-chat" class="tab-panel">
       <div class="card">
         <h2>💬 Chat with your Documents</h2>
         <p class="muted">Upload PDF/DOCX/TXT; we’ll index to FAISS and enable RAG chat.</p>
@@ -152,6 +153,28 @@
         <div id="chat-ans" class="result-block">
           <h3>Answer</h3>
           <div class="answer" id="chat-answer">No answer yet.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== EVALUATION ============== -->
+    <section id="tab-evaluation" class="tab-panel">
+      <div class="card">
+        <h2>📊 Evaluation Metrics</h2>
+        <p class="muted">View evaluation results for your RAG responses.</p>
+
+        <div id="evaluation-summary" class="result-block">
+          <h3>Summary</h3>
+          <pre class="code" id="eval-summary">No evaluation data loaded.</pre>
+        </div>
+
+        <div id="evaluation-results" class="result-block">
+          <h3>Detailed Results</h3>
+          <pre class="code" id="eval-results">No detailed results loaded.</pre>
+        </div>
+
+        <div class="actions">
+          <button id="btn-refresh-eval" class="btn primary">Refresh Evaluation Data</button>
         </div>
       </div>
     </section>
@@ -310,6 +333,38 @@
       ans.textContent = json.answer || "No answer.";
     } catch (e) {
       ans.textContent = "Query failed: " + (e.message || e);
+    }
+  });
+
+  // ===== EVALUATION =====
+  document.getElementById("btn-refresh-eval").addEventListener("click", async () => {
+    const summaryEl = document.getElementById("eval-summary");
+    const resultsEl = document.getElementById("eval-results");
+
+    try {
+      summaryEl.textContent = "Loading evaluation summary…";
+      resultsEl.textContent = "Loading evaluation results…";
+
+      // Fetch evaluation summary
+      const summaryRes = await fetch(`${API_BASE}/evaluation/summary`);
+      if (summaryRes.ok) {
+        const summary = await summaryRes.json();
+        summaryEl.textContent = JSON.stringify(summary, null, 2);
+      } else {
+        summaryEl.textContent = "No evaluation summary available.";
+      }
+
+      // Fetch evaluation results list
+      const resultsRes = await fetch(`${API_BASE}/evaluation/results`);
+      if (resultsRes.ok) {
+        const results = await resultsRes.json();
+        resultsEl.textContent = JSON.stringify(results, null, 2);
+      } else {
+        resultsEl.textContent = "No evaluation results available.";
+      }
+    } catch (e) {
+      summaryEl.textContent = "Error loading evaluation data: " + (e.message || e);
+      resultsEl.textContent = "Error loading evaluation data: " + (e.message || e);
     }
   });
 </script>

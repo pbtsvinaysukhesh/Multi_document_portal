@@ -1,6 +1,8 @@
+
 import os
 import json
 import logging
+import hashlib
 from typing import Dict, List, Any, Optional
 from dataclasses import dataclass
 from datetime import datetime
@@ -56,10 +58,14 @@ class DeepEvalEvaluator:
 
         self.evaluation_history: List[EvaluationResult] = []
 
+        # Initialize in-memory cache for evaluation results
+        self._evaluation_cache: Dict[str, RAGEvaluationMetrics] = {}
+        self._threshold_cache: Dict[str, Dict[str, EvaluationResult]] = {}
+
     def evaluate_rag_response(self, question: str, answer: str, context: List[str],
                             ground_truth: Optional[str] = None) -> RAGEvaluationMetrics:
         """
-        Evaluate a RAG response using multiple metrics.
+        Evaluate a RAG response using multiple metrics with caching for performance.
 
         Args:
             question: The user's question
@@ -70,6 +76,14 @@ class DeepEvalEvaluator:
         Returns:
             RAGEvaluationMetrics object with all evaluation scores
         """
+        # Generate cache key based on inputs
+        cache_key = self._generate_cache_key(question, answer, context, ground_truth)
+
+        # Check cache first
+        if cache_key in self._evaluation_cache:
+            logger.info("Using cached evaluation results for performance optimization")
+            return self._evaluation_cache[cache_key]
+
         try:
             # Calculate Faithfulness (how well the answer matches the context)
             faithfulness_score = self._calculate_faithfulness(answer, context)
@@ -102,6 +116,9 @@ class DeepEvalEvaluator:
                 context_precision=context_precision_score
             )
 
+            # Cache the results for future use
+            self._evaluation_cache[cache_key] = metrics
+
             logger.info(f"RAG Evaluation completed: Faithfulness={faithfulness_score:.3f}, "
                        f"Answer Relevancy={answer_relevancy_score:.3f}")
 
@@ -110,11 +127,14 @@ class DeepEvalEvaluator:
         except Exception as e:
             logger.error(f"Error during RAG evaluation: {str(e)}")
             # Return default metrics on error
-            return RAGEvaluationMetrics(
+            default_metrics = RAGEvaluationMetrics(
                 faithfulness=0.0, answer_relevancy=0.0, context_relevancy=0.0,
                 answer_correctness=0.0, answer_similarity=0.0,
                 context_recall=0.0, context_precision=0.0
             )
+            # Cache default metrics to avoid repeated errors
+            self._evaluation_cache[cache_key] = default_metrics
+            return default_metrics
 
     def _calculate_faithfulness(self, answer: str, context: List[str]) -> float:
         """Calculate how faithful the answer is to the provided context."""
@@ -429,4 +449,26 @@ class DeepEvalEvaluator:
             'passed_evaluations': passed_evaluations,
             'pass_rate': passed_evaluations / total_evaluations if total_evaluations > 0 else 0,
             'metric_summary': metric_summary
+        }
+
+    def _generate_cache_key(self, question: str, answer: str, context: List[str],
+                           ground_truth: Optional[str] = None) -> str:
+        """Generate a unique cache key based on evaluation inputs."""
+        # Create a string representation of all inputs
+        cache_string = f"{question}|{answer}|{'|'.join(context)}|{ground_truth or ''}"
+
+        # Generate SHA256 hash for consistent cache key
+        return hashlib.sha256(cache_string.encode('utf-8')).hexdigest()
+
+    def clear_cache(self) -> None:
+        """Clear all cached evaluation results."""
+        self._evaluation_cache.clear()
+        self._threshold_cache.clear()
+        logger.info("Evaluation cache cleared")
+
+    def get_cache_stats(self) -> Dict[str, int]:
+        """Get statistics about the current cache state."""
+        return {
+            'evaluation_cache_size': len(self._evaluation_cache),
+            'threshold_cache_size': len(self._threshold_cache)
         }

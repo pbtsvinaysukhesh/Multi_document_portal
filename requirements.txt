@@ -1,10 +1,8 @@
 langchain==0.3.27
 langchain-community==0.3.27
 langchain-core==0.3.72
-
 langchain-groq==0.3.6
 langchain-google-genai==2.1.8
-
 faiss-cpu==1.11.0.post1
 fastapi==0.116.1
 uvicorn==0.35.0
@@ -17,5 +15,18 @@ ipykernel==6.30.0
 streamlit==1.47.1
 pytest==8.4.1
 pypdf==5.8.0
+pandas==2.2.2
+opencv-python==4.12.0.88
+pytesseract==0.3.13
+Pillow==10.4.0
+numpy>=2.0.0,<2.3.0
+camelot-py==0.10.1
+tabula-py==2.9.3
+pdf2image==1.17.0
 cfn-lint
+python-docx
+python-pptx
+sentence-transformers
+PyPDF2<3.0.0
+JPype1
 -e .

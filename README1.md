@@ -67,3 +67,4 @@ git clone https://github.com/sunnysavita10/document_portal.git
 - [Gemini Documentation](https://ai.google.dev/gemini-api/docs/models)
 
 
+# conda install -c conda-forge poppler
